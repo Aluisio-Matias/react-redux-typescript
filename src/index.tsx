@@ -1,19 +1,52 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM  from "react-dom";
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { App } from "./components/App";
+import { reducers } from "./reducers";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+const store = createStore(reducers, applyMiddleware(thunk))
+
+ReactDOM.render(
+<Provider store={store}>
+  <App />
+</Provider>,
+document.querySelector('#root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+//EXAMPLE OF CLASS COMPONENT
+// interface AppProps {
+//   color?: string;
+// };
+
+// class App extends React.Component<AppProps> {
+//   state = { counter: 0 }
+  
+//   onIncrement = (): void => {
+//     this.setState({ counter: this.state.counter + 1 });
+//   };
+
+//   onDecrement = (): void => {
+//     this.setState({ counter: this.state.counter - 1 });
+//   };
+
+//   render() {
+//     return (
+//     <div>
+//       <button onClick={this.onIncrement}>Increment</button>
+//       <button onClick={this.onDecrement}>Decrement</button>
+//       <p>{this.state.counter}</p>
+//     </div>
+//     )
+//   }
+// }
+
+//EXAMPLE OF FUNCTIONAL COMPONENT
+// const App = (props: AppProps): JSX.Element => {
+//   return (
+//     <div>{props.color}</div>
+//   )
+// }
+
